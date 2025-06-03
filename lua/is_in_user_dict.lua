@@ -19,7 +19,7 @@ function M.func(input, env)
 
 		-- 用户置顶词
 		if cand.type == "user_table" then
-			cand.comment = cand.comment .. "⚡"
+			cand.comment = cand.comment .. "📌"
 		end
 
 		-- 整句联想，加上 𑄗 符号

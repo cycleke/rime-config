@@ -27,6 +27,9 @@ schema:
     - melt_eng        # 英文输入，作为次翻译器挂载到拼音方案
     - radical_pinyin  # 部件拆字，反查及辅码
 
+  icon: icons/zh.ico
+  ascii_icon: icons/en.ico
+
 
 # 开关
 # reset: 默认状态。注释掉后，切换窗口时不会重置到默认状态。
@@ -43,6 +46,7 @@ switches:
     states: [ "😣️","😁️"]
   - name: full_shape
     states: [ 半角, 全角 ]
+
 
 # 输入引擎
 engine:
@@ -80,6 +84,7 @@ engine:
     - lua_filter@*corrector                          # 错音错字提示
     - reverse_lookup_filter@radical_reverse_lookup   # 部件拆字滤镜
     - lua_filter@*autocap_filter                     # 英文自动大写
+    - lua_filter@*v_filter                           # v 模式 symbols 优先
     - lua_filter@*pin_cand_filter                    # 置顶候选项（顺序要求：置顶候选项 > Emoji > 简繁切换）
     - lua_filter@*reduce_english_filter              # 降低部分英语单词在候选项的位置
     - simplifier@emoji                               # Emoji
@@ -280,9 +285,9 @@ radical_reverse_lookup:
   # dictionary 为拼音标注来源。目前是显示本方案词库的注音，可去部件拆字方案下载更全的、带声调的、已编译好的词典
   # https://github.com/mirtlecn/rime-radical-pinyin?tab=readme-ov-file#%E5%8F%8D%E6%9F%A5%E5%B8%A6%E5%A3%B0%E8%B0%83%E6%B3%A8%E9%9F%B3
   dictionary: rime_frost
-  # comment_format:     # 自定义 comment，例如在左右加上括号
-  #  - xform/^/(/
-  #  - xform/$/)/
+  comment_format:     # 自定义 comment，例如在左右加上括号
+   - xform/^/(/
+   - xform/$/)/
 
 
 # 处理符合特定规则的输入码，如网址、反查
