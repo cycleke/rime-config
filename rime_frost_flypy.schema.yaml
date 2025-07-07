@@ -5,7 +5,7 @@
 # 双拼键位映射复制自 https://github.com/rime/rime-double-pinyin
 # 双拼之间主要就是 speller/algebra 和 translator/preedit_format 这里有区别。
 #
-# 全拼的自定义文本和双拼有些冲突，改成了 custom_phrase_double ，需要创建 custom_phrase_double.txt 文件。
+# 全拼的自定义文本和双拼有些冲突，改成了 custom_phrase_flypy ，需要创建 custom_phrase_flypy.txt 文件。
 #
 # 目前配置中有个别功能仍然是全拼拼写，不能自动适配，所以需要手动修改一下：
 # - 英文中部分符号的派生规则：在英文方案文件 melt_eng.schema.yaml > speller > algebra 修改为对应的双拼拼写运算
@@ -15,7 +15,7 @@
 
 # 方案说明
 schema:
-  schema_id: rime_frost_double_pinyin_flypy
+  schema_id: rime_frost_flypy
   name: 小鹤双拼
   version: "1"
   author:
@@ -26,7 +26,7 @@ schema:
   dependencies:
     - melt_eng        # 英文输入，作为次翻译器挂载到拼音方案
     - radical_pinyin  # 部件拆字，反查及辅码
-
+  # 图标
   icon: icons/zh.ico
   ascii_icon: icons/en.ico
 
@@ -74,7 +74,7 @@ engine:
     - lua_translator@*number_translator          # 数字、金额大写
     - lua_translator@*mint_date_time_translator  # 时间、日期、星期、月份
     - lua_translator@*mint_calculator_translator # 计算器（lua 动态表达式）
-    - table_translator@custom_phrase             # 自定义短语 custom_phrase_double.txt
+    - table_translator@custom_phrase             # 自定义短语 custom_phrase_flypy.txt
     - table_translator@melt_eng                  # 英文输入
     - table_translator@cn_en                     # 中英混合词汇
     - table_translator@radical_lookup            # 部件拆字反查
@@ -166,7 +166,7 @@ pin_cand_filter:
 # 主翻译器，拼音
 translator:
   dictionary: rime_frost                   # 挂载词库 rime_frost.dict.yaml
-  prism: rime_frost_double_pinyin_flypy    # 多方案共用一个词库时，为避免冲突，需要用 prism 指定一个名字。
+  prism: rime_frost_flypy    # 多方案共用一个词库时，为避免冲突，需要用 prism 指定一个名字。
   spelling_hints: 8                        # corrector.lua ：为了让错音错字提示的 Lua 同时适配全拼双拼，将拼音显示在 comment 中
   always_show_comments: true               # corrector.lua ：Rime 默认在 preedit 等于 comment 时取消显示 comment，这里强制一直显示，供 corrector.lua 做判断用。
   initial_quality: 1.2                     # 拼音的权重应该比英文大
@@ -174,47 +174,16 @@ translator:
     - xform/^/［/
     - xform/$/］/
   preedit_format:               # preedit_format 影响到输入框的显示和“Shift+回车”上屏的字符
-    - xform/([bpmfdtnljqx])n/$1iao/
-    - xform/(\w)g/$1eng/
-    - xform/(\w)q/$1iu/
-    - xform/(\w)w/$1ei/
-    - xform/([dtnlgkhjqxyvuirzcs])r/$1uan/
-    - xform/(\w)t/$1ve/
-    - xform/(\w)y/$1un/
-    - xform/([dtnlgkhvuirzcs])o/$1uo/
-    - xform/(\w)p/$1ie/
-    - xform/([jqx])s/$1iong/
-    - xform/(\w)s/$1ong/
-    - xform/(\w)d/$1ai/
-    - xform/(\w)f/$1en/
-    - xform/(\w)h/$1ang/
-    - xform/(\w)j/$1an/
-    - xform/([gkhvuirzcs])k/$1uai/
-    - xform/(\w)k/$1ing/
-    - xform/([jqxnlb])l/$1iang/
-    - xform/(\w)l/$1uang/
-    - xform/(\w)z/$1ou/
-    - xform/([gkhvuirzcs])x/$1ua/
-    - xform/(\w)x/$1ia/
-    - xform/(\w)c/$1ao/
-    - xform/([dtgkhvuirzcs])v/$1ui/
-    - xform/(\w)b/$1in/
-    - xform/(\w)m/$1ian/
-    - xform/([aoe])\1(\w)/$1$2/
-    - "xform/(^|[ '])v/$1zh/"
-    - "xform/(^|[ '])i/$1ch/"
-    - "xform/(^|[ '])u/$1sh/"
-    - xform/([jqxy])v/$1u/
     - xform/([nl])v/$1ü/
-    # - xform/ü/v/  # ü 显示为 v
-
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
 
 # 次翻译器，英文
 melt_eng:
   dictionary: melt_eng     # 挂载词库 melt_eng.dict.yaml
   enable_sentence: false   # 禁止造句
   enable_user_dict: false  # 禁用用户词典
-  initial_quality: 1.1     # 初始权重
+  initial_quality: 0.8     # 初始权重
   comment_format:          # 自定义提示码
     - xform/.*//           # 清空提示码
 
@@ -234,7 +203,7 @@ cn_en:
 # 自定义短语
 custom_phrase:
   dictionary: ""
-  user_dict: custom_phrase_double  # 需要手动创建 custom_phrase_double.txt 文件
+  user_dict: custom_phrase_flypy  # 需要手动创建 custom_phrase_flypy.txt 文件
   db_class: stabledb
   enable_completion: false # 补全提示
   enable_sentence: false   # 禁止造句
@@ -315,36 +284,123 @@ speller:
   delimiter: " '"  # 第一位<空格>是拼音之间的分隔符；第二位<'>表示可以手动输入单引号来分割拼音。
   algebra:
     - erase/^xx$/
-    - derive/^([jqxy])u$/$1v/
-    - derive/^([aoe])([ioun])$/$1$1$2/
-    - xform/^([aoe])(ng)?$/$1$1$2/
-    - xform/iu$/Ⓠ/
-    - xform/(.)ei$/$1Ⓦ/
-    - xform/uan$/Ⓡ/
-    - xform/[uv]e$/Ⓣ/
-    - xform/un$/Ⓨ/
-    - xform/^sh/Ⓤ/
-    - xform/^ch/Ⓘ/
-    - xform/^zh/Ⓥ/
-    - xform/uo$/Ⓞ/
-    - xform/ie$/Ⓟ/
-    - xform/(.)i?ong$/$1Ⓢ/
-    - xform/ing$|uai$/Ⓚ/
-    - xform/(.)ai$/$1Ⓓ/
-    - xform/(.)en$/$1Ⓕ/
-    - xform/(.)eng$/$1Ⓖ/
-    - xform/[iu]ang$/Ⓛ/
-    - xform/(.)ang$/$1Ⓗ/
-    - xform/ian$/Ⓜ/
-    - xform/(.)an$/$1Ⓙ/
-    - xform/(.)ou$/$1Ⓩ/
-    - xform/[iu]a$/Ⓧ/
-    - xform/iao$/Ⓝ/
-    - xform/(.)ao$/$1Ⓒ/
-    - xform/ui$/Ⓥ/
-    - xform/in$/Ⓑ/
-    - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
-    # - abbrev/^(.).+$/$1/  # 首字母简拼，开启后会导致 3 个字母时 kj'x 变成 k'jx 的问题
+    - abbrev/^([a-z])[a-z]*$/$1/       # 简拼（首字母）
+    - abbrev/^([zcs]h).+$/$1/          # 简拼（zh, ch, sh）
+
+    # 张居正方案（替换原方案小鹤双拼适配）
+      # 需要特殊处理避免歧义的韵母
+    - derive/^([bcdfghklmnprstwyz])(ang)$/$1h
+    - derive/^(ch)(ang)$/ih
+    - derive/^(sh)(ang)$/uh
+    - derive/^(zh)(ang)$/vh
+
+    - derive/^([cdghklnrstyz])(ong)$/$1s
+    - derive/^(ch)(ong)$/is
+    - derive/^(zh)(ong)$/vs
+
+    - derive/^([bcdghklmnpstwz])(ai)$/$1d
+    - derive/^(ch)(ai)$/id
+    - derive/^(sh)(ai)$/ud
+    - derive/^(zh)(ai)$/vd
+
+    - derive/^([bcdghklmnprstyz])(ao)$/$1c
+    - derive/^(ch)(ao)$/ic
+    - derive/^(sh)(ao)$/uc
+    - derive/^(zh)(ao)$/vc
+
+    - derive/^([bcdfghklmnprstwyz])(an)$/$1j
+    - derive/^(ch)(an)$/ij
+    - derive/^(sh)(an)$/uj
+    - derive/^(zh)(an)$/vj
+
+      # 单字母韵母
+    - derive/^(a)$/aa
+    - derive/^(o)$/oo
+    - derive/^(e)$/ee
+
+      # 三字母韵母
+    - derive/^(ang)$/ah
+    - derive/^(eng)$/eg
+
+      # 卷舌声母
+    - derive/^(zh)([aeiu])$/v$2
+    - derive/^(ch)([aeiu])$/i$2
+    - derive/^(sh)([aeiu])$/u$2
+
+      # 四字母韵母
+    - derive/^([jlnqx])(iang)$/$1l
+    - derive/^([jqx])(iong)$/$1s
+
+      # 三字母韵母
+    - derive/^([bdjlmnpqtxy])(ing)$/$1k
+    - derive/^([bdjlmnpqtx])(iao)$/$1n
+    - derive/^([bdjlmnpqtx])(ian)$/$1m
+
+      # 二字母韵母
+    - derive/^([djlmnqx])(iu)$/$1q
+    - derive/^([jlnqxy])[uv]e/$1t
+    - derive/^([bdjlmnpqtx])(ie)$/$1p
+    - derive/^([djlqx])(ia)$/$1x
+    - derive/^([bjlmnpqxy])(in)$/$1b
+
+      # iuv特殊处理
+      # 四字母
+    - derive/^([ghk])(uang)$/$1l
+    - derive/^(ch)(uang)$/il
+    - derive/^(sh)(uang)$/ul
+    - derive/^(zh)(uang)$/vl
+
+      # 三字母
+    - derive/^([cdghjklnqrstxyz])(uan)$/$1r
+    - derive/^(ch)(uan)$/ir
+    - derive/^(sh)(uan)$/ur
+    - derive/^(zh)(uan)$/vr
+
+    - derive/^([bcdfghklmnprstwz])(eng)$/$1g
+    - derive/^(ch)(eng)$/ig
+    - derive/^(sh)(eng)$/ug
+    - derive/^(zh)(eng)$/vg
+
+    - derive/^([ghk])(uai)$/$1k
+    - derive/^(ch)(uai)$/ik
+    - derive/^(sh)(uai)$/uk
+    - derive/^(zh)(uai)$/vk
+
+      # 二字母
+    - derive/^([bdfghklmnpwz])(ei)$/$1w
+    - derive/^(sh)(ei)$/uw
+    - derive/^(zh)(ei)$/vw
+
+    - derive/^([cdghjklqrstxyz])(un)$/$1y
+    - derive/^(ch)(un)$/iy
+    - derive/^(sh)(un)$/uy
+    - derive/^(zh)(un)$/vy
+
+    - derive/^([cdghklnrstz])(uo)$/$1o
+    - derive/^(ch)(uo)$/io
+    - derive/^(sh)(uo)$/uo
+    - derive/^(zh)(uo)$/vo
+
+    - derive/^([bcdfghkmnprswz])(en)$/$1f
+    - derive/^(ch)(en)$/if
+    - derive/^(sh)(en)$/uf
+    - derive/^(zh)(en)$/vf
+
+    - derive/^([cdfghklmnprstyz])(ou)$/$1z
+    - derive/^(ch)(ou)$/iz
+    - derive/^(sh)(ou)$/uz
+    - derive/^(zh)(ou)$/vz
+
+    - derive/^([ghkr])(ua)$/$1x
+    - derive/^(ch)(ua)$/ix
+    - derive/^(sh)(ua)$/ux
+    - derive/^(zh)(ua)$/vx
+
+    - derive/^([cdghkrstz])(ui)$/$1v
+    - derive/^(ch)(ui)$/iv
+    - derive/^(sh)(ui)$/uv
+    - derive/^(zh)(ui)$/vv
+
 
 # 模型
 grammar:
