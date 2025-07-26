@@ -12,8 +12,16 @@ schema_list:
 # 菜单
 menu:
   page_size: 6 # 候选词个数
-  # alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩ ]  # 修改候选项标签
-  # alternative_select_keys: ASDFGHJKL  # 如编码字符占用数字键，则需另设选字键
+  # 修改候选项标签
+  # alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩ ]
+  alternative_select_labels: [ 〡, 〢, 〣, 〤, 〥, 〦, 〧, 〨, 〩, 〇 ]
+  # alternative_select_labels: [ ㈠, ㈡, ㈢, ㈣, ㈤, ㈥, ㈦, ㈧, ㈨, ㈩ ]
+  # alternative_select_labels: [ 🀇, 🀈, 🀉, 🀊, 🀋, 🀌, 🀍, 🀎, 🀏, 🀄 ]
+  # alternative_select_labels: [ Ⅰ, Ⅱ, Ⅲ, Ⅳ, Ⅴ, Ⅵ, Ⅶ, Ⅷ, Ⅸ, Ⅹ ]
+  # alternative_select_labels: [ ⅰ, ⅱ, ⅲ, ⅳ, ⅴ, ⅵ, ⅶ, ⅷ, ⅸ, ⅹ ]
+
+  # 如编码字符占用数字键，则需另设选字键
+  # alternative_select_keys: ASDFGHJKL
 
 # 方案选单相关
 switcher:

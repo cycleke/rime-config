@@ -36,7 +36,8 @@ import_tables:
   - dicts/rime-frost.cell.shulihua
   - dicts/rime-frost.cell.sport
 
-  # 萌娘百科
+  # 百科
+  - dicts/zhwiki
   - dicts/moegirl
 ...
 
