@@ -54562,7 +54562,7 @@ sort: by_weight
 导生	dao sheng	14
 道生一	dao sheng yi	79
 倒是	dao shi	14185
-导师	dao shi	27231
+导师	dao shi	2723
 到时	dao shi	1550
 道士	dao shi	1454
 导视	dao shi	30
@@ -61330,7 +61330,7 @@ sort: by_weight
 雕版印刷	diao ban yin shua	85
 吊膀子	diao bang zi	2
 碉堡	diao bao	368
-调包	diao bao	315
+调包	diao bao	415
 屌爆	diao bao	34
 掉宝	diao bao	18
 刁包	diao bao	1
@@ -67215,6 +67215,7 @@ sort: by_weight
 对国家	dui guo jia	921
 对还是错	dui hai shi cuo	29
 对汉字	dui han zi	123
+对号	dui hao	100
 堆好	dui hao	10
 对号入座	dui hao ru zuo	1140
 堆和栈	dui he zhan	13
@@ -76101,7 +76102,7 @@ sort: by_weight
 方与圆	fang yu yuan	5
 防御战	fang yu zhan	77
 防御者	fang yu zhe	34
-房源	fang yuan	1406
+房源	fang yuan	140
 方圆	fang yuan	748
 访员	fang yuan	7
 # 方元	fang yuan	0
@@ -81984,6 +81985,9 @@ sort: by_weight
 服满	fu man	13
 覆满	fu man	22
 富满电子	fu man dian zi	8
+服贸	fu mao	33
+浮毛	fu mao	11
+福茂	fu mao	1
 服贸会	fu mao hui	4
 敷毛巾	fu mao jin	2
 赴美	fu mei	429
@@ -83216,7 +83220,7 @@ sort: by_weight
 服役勋章	fu yi xun zhang	18
 拂衣远去	fu yi yuan qu	4
 副议长	fu yi zhang	6
-复印	fu yin	1033
+复印	fu yin	2033
 福音	fu yin	1846
 辅音	fu yin	1367
 府尹	fu yin	18
@@ -106844,6 +106848,7 @@ sort: by_weight
 河汉江淮	he han jiang huai	1
 河汉清且浅	he han qing qie qian	4
 核函数	he han shu	335
+和好	he hao	176
 喝好	he hao	76
 和好如初	he hao ru chu	47
 呵呵	he he	9967
@@ -130556,7 +130561,7 @@ sort: by_weight
 渐有	jian you	25
 兼优	jian you	15
 监狱	jian yu	3997
-鉴于	jian yu	6119
+鉴于	jian yu	611
 建于	jian yu	467
 见于	jian yu	953
 箭雨	jian yu	106
@@ -135931,7 +135936,7 @@ sort: by_weight
 揭帖	jie tie	5
 结帖	jie tie	3
 接听	jie ting	481
-街亭	jie ting	613
+街亭	jie ting	61
 截停	jie ting	46
 接听电话	jie ting dian hua	161
 接通	jie tong	605
@@ -136243,7 +136248,7 @@ sort: by_weight
 接着找	jie zhe zhao	24
 接诊	jie zhen	518
 街镇	jie zhen	20
-戒指	jie zhi	2671
+戒指	jie zhi	3671
 截止	jie zhi	3316
 截至	jie zhi	3782
 节制	jie zhi	1057
@@ -163232,7 +163237,7 @@ sort: by_weight
 炼焦炉	lian jiao lu	1
 炼焦煤	lian jiao mei	11
 联交所	lian jiao suo	22
-连接	lian jie	15518
+连接	lian jie	35518
 链接	lian jie	32844
 廉洁	lian jie	185
 联结	lian jie	1044
@@ -170608,7 +170613,7 @@ sort: by_weight
 陆法言	lu fa yan	7
 录放	lu fang	4
 路费	lu fei	791
-路飞	lu fei	4740
+路飞	lu fei	474
 # 芦𫂈	lu fei	0
 # 陆费	lu fei	0
 陆费逵	lu fei kui	5
@@ -215746,6 +215751,7 @@ sort: by_weight
 饶河	rao he	30
 饶河县	rao he xian	1
 绕回	rao hui	106
+绕颈	rao jing	99
 绕开	rao kai	1161
 绕口	rao kou	149
 绕口令	rao kou ling	292
@@ -241563,7 +241569,7 @@ sort: by_weight
 受热	shou re	1072
 受热面	shou re mian	9
 受热面积	shou re mian ji	63
-熟人	shou ren	3425
+熟人	shou ren	342
 受人	shou ren	377
 兽人	shou ren	241
 收人	shou ren	130
