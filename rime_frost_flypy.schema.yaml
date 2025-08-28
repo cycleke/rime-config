@@ -26,7 +26,7 @@ schema:
   dependencies:
     - melt_eng        # 英文输入，作为次翻译器挂载到拼音方案
     - radical_pinyin  # 部件拆字，反查及辅码
-  # 图标
+  # 自定义图标
   icon: icons/zh.ico
   ascii_icon: icons/en.ico
 
@@ -37,11 +37,11 @@ schema:
 # abbrev: 默认的缩写取 states 的第一个字符，abbrev 可自定义一个字符
 switches:
   - name: ascii_mode
-    states: [ 中, Ａ ]
-  - name: ascii_punct  # 中英标点
-    states: [ ¥, $ ]
+    states: [ 中文, Eng ]
+  - name: ascii_punct
+    states: [ "。，", "．，" ]
   - name: traditionalization
-    states: [ 简, 繁 ]
+    states: ["汉字", "漢字"]
   - name: emoji
     states: [ "😣️","😁️"]
   - name: full_shape

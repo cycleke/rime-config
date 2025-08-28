@@ -12,19 +12,22 @@ end
 
 function M.func(input, env)
 	for cand in input:iter() do
-		-- 用户词库，加上 * 号
+		-- 用户词库
 		if cand.type == "user_phrase" then
-			cand.comment = "*"
+			-- cand.comment = "*"
+			cand.comment = "✨"
 		end
 
 		-- 用户置顶词
 		if cand.type == "user_table" then
-			cand.comment = cand.comment .. "📌"
+			-- cand.comment = cand.comment .. "∴"
+			cand.comment = cand.comment .. "🚩"
 		end
 
-		-- 整句联想，加上 𑄗 符号
+		-- 整句联想
 		if cand.type == "sentence" then
-			cand.comment = "∞"
+			-- cand.comment = "∝"
+			cand.comment = "💬"
 		end
 		yield(cand)
 	end
