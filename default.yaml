@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # 要比共享目录的同名文件的 config_version 大才可以生效
-config_version: "2025-04-21"
+config_version: "2025-10-13"
 
 schema_list:
   - schema: rime_frost_flypy # 小鹤双拼
@@ -12,32 +12,33 @@ schema_list:
 # 菜单
 menu:
   page_size: 6 # 候选词个数
+
   # 修改候选项标签
-  # alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩ ]
-  alternative_select_labels: [ 〡, 〢, 〣, 〤, 〥, 〦, 〧, 〨, 〩, 〇 ]
-  # alternative_select_labels: [ ㈠, ㈡, ㈢, ㈣, ㈤, ㈥, ㈦, ㈧, ㈨, ㈩ ]
+  alternative_select_labels: [ ㈠, ㈡, ㈢, ㈣, ㈤, ㈥, ㈦, ㈧, ㈨, ㈩ ]
   # alternative_select_labels: [ 🀇, 🀈, 🀉, 🀊, 🀋, 🀌, 🀍, 🀎, 🀏, 🀄 ]
-  # alternative_select_labels: [ Ⅰ, Ⅱ, Ⅲ, Ⅳ, Ⅴ, Ⅵ, Ⅶ, Ⅷ, Ⅸ, Ⅹ ]
+  # alternative_select_labels: [ ①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩ ]
+  # alternative_select_labels: [ 〡, 〢, 〣, 〤, 〥, 〦, 〧, 〨, 〩, 〇 ]
   # alternative_select_labels: [ ⅰ, ⅱ, ⅲ, ⅳ, ⅴ, ⅵ, ⅶ, ⅷ, ⅸ, ⅹ ]
+  # alternative_select_labels: [ Ⅰ, Ⅱ, Ⅲ, Ⅳ, Ⅴ, Ⅵ, Ⅶ, Ⅷ, Ⅸ, Ⅹ ]
 
   # 如编码字符占用数字键，则需另设选字键
   # alternative_select_keys: ASDFGHJKL
 
+
 # 方案选单相关
 switcher:
-  caption: 「方案选单」
+  caption: 〔方案切换〕
   hotkeys:
+    - F4
     - Control+grave
     - Control+Shift+grave
-  save_options: # 开关记忆（方案中的 switches），从方案选单（而非快捷键）切换时会记住的选项。
-                # 需要记忆的开关不能设定 reset
+  # 在切换方案时保留的选项
+  save_options:
     - ascii_punct
     - traditionalization
     - emoji
     - full_shape
-  fold_options: true                     # 呼出时是否折叠，
-                                         # 多方案时建议折叠 true，
-                                         # 一个方案建议展开 false
+  fold_options: true                     # 折叠选项以节省空间
   abbreviate_options: true               # 折叠时是否缩写选项
   option_list_separator: "\u2005/\u2005" # 折叠时的选项分隔符
 
@@ -66,6 +67,7 @@ ascii_composer:
 
 ###################################################################################
 
+
 translator:
   # 启用自动造词
   enable_encoder: true
@@ -75,6 +77,7 @@ translator:
   enable_user_dict: true
   # 对已上屏的词语进行自动编码以提高下次输入的命中率
   encode_commit_history: true
+
 
 # 下面的 punctuator recognizer key_binder 写了一些所有方案通用的配置项。
 # 写在 default.yaml 里，方便多个方案引用，就是不用每个方案都写一遍了。
@@ -88,86 +91,89 @@ translator:
 #              '`'（反引号）没有改成 '·'（间隔号）。
 punctuator:
   full_shape:
-    " ": { commit: "　" }
-    ",": { commit: ， }
-    ".": { commit: 。 }
-    "<": [《, 〈, «, ‹]
-    ">": [》, 〉, », ›]
-    "/": [／, ÷]
-    "?": { commit: ？ }
-    ";": { commit: ； }
-    ":": { commit: ： }
-    "'": { pair: ["‘", "’"] }
-    '"': { pair: ["“", "”"] }
-    '\': [、, ＼]
-    "|": [·, ｜, "§", "¦"]
-    "`": ｀
-    "~": ～
-    "!": { commit: ！ }
-    "@": [＠, ☯]
-    "#": [＃, ⌘]
-    "%": [％, "°", "℃"]
-    "$": [￥, "$", "€", "£", "¥", "¢", "¤"]
-    "^": { commit: …… }
-    "&": ＆
-    "*": [＊, ·, ・, ×, ※, ❂]
-    "(": （
-    ")": ）
-    "-": －
-    "_": ——
-    "+": ＋
-    "=": ＝
-    "[": [「, 【, 〔, ［]
-    "]": [」, 】, 〕, ］]
-    "{": [『, 〖, ｛]
-    "}": [』, 〗, ｝]
+    ' ' : { commit: '　' }
+    ',' : { commit: ， }
+    '.' : { commit: 。 }
+    '<' : [ 《, 〈, «, ‹ ]
+    '>' : [ 》, 〉, », › ]
+    '/' : [ ／, ÷ ]
+    '?' : { commit: ？ }
+    ';' : { commit: ； }
+    ':' : { commit: ： }
+    '''' : { pair: [ '‘', '’' ] }
+    '"' : { pair: [ '“', '”' ] }
+    '\' : [ 、, ＼ ]
+    '|' : [ ·, ｜, '§', '¦' ]
+    '`' : ｀
+    '~' : ～
+    '!' : { commit: ！ }
+    '@' : [ ＠, ☯ ]
+    '#' : [ ＃, ⌘ ]
+    '%' : [ ％, '°', '℃' ]
+    '$' : [ ￥, '$', '€', '£', '¥', '¢', '¤' ]
+    '^' : { commit: …… }
+    '&' : ＆
+    '*' : [ ＊, ·, ・, ×, ※, ❂ ]
+    '(' : （
+    ')' : ）
+    '-' : －
+    '_' : ——
+    '+' : ＋
+    '=' : ＝
+    '[' : [ 「, 【, 〔, ［ ]
+    ']' : [ 」, 】, 〕, ］ ]
+    '{' : [ 『, 〖, ｛ ]
+    '}' : [ 』, 〗, ｝ ]
   half_shape:
-    ",": "，"
-    ".": "。"
-    "<": "《"
-    ">": "》"
-    "/": [/, ÷]
-    "?": "？"
-    ";": "；"
-    ":": "："
-    "'": { pair: ["‘", "’"] }
-    '"': { pair: ["“", "”"] }
-    '\': "、"
-    "|": "|"
-    "`": "`"
-    "~": "~"
-    "!": "！"
-    "@": "@"
-    "#": "#"
-    "%": "%"
-    "$": "¥"
-    "^": { commit: …… }
-    "&": "&"
-    "*": "*"
-    "(": "（"
-    ")": "）"
-    "-": "-"
-    "_": ——
-    "+": "+"
-    "=": "="
-    "[": "【"
-    "]": "】"
-    "{": "「"
-    "}": "」"
+    ',' : '，'
+    '.' : '。'
+    '<' : '《'
+    '>' : '》'
+    '/' : [ /, ÷ ]
+    '?' : '？'
+    ';' : '；'
+    ':' : '：'
+    '''' : { pair: [ '‘', '’' ] }
+    '"' : { pair: [ '“', '”' ] }
+    '\' : '、'
+    '|' : '|'
+    '`' : '`'
+    '~' : '~'
+    '!' : '！'
+    '@' : '@'
+    '#' : '#'
+    '%' : '%'
+    '$' : '¥'
+    '^' : '……'
+    '&' : '&'
+    '*' : '*'
+    '(' : '（'
+    ')' : '）'
+    '-' : '-'
+    '_' : ——
+    '+' : '+'
+    '=' : '='
+    '[' : '【'
+    ']' : '】'
+    '{' : '「'
+    '}' : '」'
+
 
 # 处理符合特定规则的输入码，如网址、反查
 # 此处配置较为通用的选项，各方案中另增加了和方案功能绑定的 patterns。
 recognizer:
   patterns:
     email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$" # email @ 之后不上屏
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$" # 匹配大写字母开头的字符串
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$" # URL
-    underscore: "^[A-Za-z]+_.*"  # 下划线不上屏
+    underscore: "^[A-Za-z]+_.*" # 下划线不上屏
+
 
 # 快捷键
 key_binder:
-  # Lua 配置: 以词定字（上屏当前词句的第一个或最后一个字），和中括号翻页有冲突
-  select_first_character: "minus"
-  select_last_character: "equal"
+  # Lua 配置: 以词定字（上屏当前词句的第一个或最后一个字）
+  select_first_character: "minus" # "-"
+  select_last_character: "equal"  # "+"
 
   bindings:
     # Tab / Shift+Tab 切换光标至下/上一个拼音

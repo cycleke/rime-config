@@ -17,17 +17,19 @@
 schema:
   schema_id: rime_frost_flypy
   name: 小鹤双拼
-  version: "1"
+  version: "2025-10-13"
   author:
     - Dvel
+    - cycleke
   description: |
     雾凇拼音 - 小鹤双拼
     https://github.com/iDvel/rime-ice
   dependencies:
-    - melt_eng        # 英文输入，作为次翻译器挂载到拼音方案
-    - radical_pinyin  # 部件拆字，反查及辅码
+    - melt_eng       # 英文输入，作为次翻译器挂载到拼音方案
+    - radical_pinyin # 部件拆字，反查及辅码
+
   # 自定义图标
-  icon: icons/zh.ico
+  icon: icons/flypy.ico
   ascii_icon: icons/en.ico
 
 
@@ -37,13 +39,13 @@ schema:
 # abbrev: 默认的缩写取 states 的第一个字符，abbrev 可自定义一个字符
 switches:
   - name: ascii_mode
-    states: [ 中文, Eng ]
+    states: [ 中, Ａ ]
   - name: ascii_punct
-    states: [ "。，", "．，" ]
+    states: [ 。，, ".," ]
   - name: traditionalization
-    states: ["汉字", "漢字"]
+    states: [ 汉字, 漢字 ]
   - name: emoji
-    states: [ "😣️","😁️"]
+    states: [ 😣️, 😁️ ]
   - name: full_shape
     states: [ 半角, 全角 ]
 
@@ -51,7 +53,7 @@ switches:
 # 输入引擎
 engine:
   processors:
-    - lua_processor@*select_character
+    - lua_processor@*select_character # 以词定字
     - ascii_composer
     - recognizer
     - key_binder
@@ -64,33 +66,34 @@ engine:
     - ascii_segmentor
     - matcher
     - abc_segmentor
-    - affix_segmentor@radical_lookup  # 部件拆字自定义 tag
+    - affix_segmentor@radical_lookup # 部件拆字自定义 tag
     - punct_segmentor
     - fallback_segmentor
   translators:
     - punct_translator
     - script_translator
-    - lua_translator@*lunar                      # 农历
-    - lua_translator@*unicode                    # Unicode
-    - lua_translator@*number_translator          # 数字、金额大写
-    - lua_translator@*mint_date_time_translator  # 时间、日期、星期、月份
-    - lua_translator@*mint_calculator_translator # 计算器（lua 动态表达式）
-    - table_translator@custom_phrase             # 自定义短语 custom_phrase_flypy.txt
-    - table_translator@melt_eng                  # 英文输入
-    - table_translator@cn_en                     # 中英混合词汇
-    - table_translator@radical_lookup            # 部件拆字反查
-    - lua_translator@*force_gc                   # 暴力 GC
+    - lua_translator@*date_time       # 时间、日期、星期、月份
+    - lua_translator@*lunar           # 农历
+    - table_translator@custom_phrase  # 自定义短语
+    - table_translator@melt_eng       # 英文输入
+    - table_translator@cn_en          # 中英混合词汇
+    - table_translator@radical_lookup # 部件拆字反查
+    - lua_translator@*unicode         # Unicode
+    - lua_translator@*number          # 数字、金额大写
+    - lua_translator@*calculator      # 计算器（lua 动态表达式）
+    - lua_translator@*force_gc        # 暴力 GC
   filters:
-    - lua_filter@*is_in_user_dict                    # 用户词典的词加上一个*
-    - lua_filter@*corrector                          # 错音错字提示
-    - reverse_lookup_filter@radical_reverse_lookup   # 部件拆字滤镜
-    - lua_filter@*autocap_filter                     # 英文自动大写
-    - lua_filter@*v_filter                           # v 模式 symbols 优先
-    - lua_filter@*pin_cand_filter                    # 置顶候选项（顺序要求：置顶候选项 > Emoji > 简繁切换）
-    - lua_filter@*reduce_english_filter              # 降低部分英语单词在候选项的位置
-    - simplifier@emoji                               # Emoji
-    - simplifier@traditionalize                      # 简繁切换
-    - uniquifier                                     # 去重
+    - lua_filter@*tag_user_dict                    # 用户词典的词加标记
+    - lua_filter@*corrector                        # 错音错字提示
+    - reverse_lookup_filter@radical_reverse_lookup # 部件拆字滤镜
+    - lua_filter@*autocap_filter                   # 英文自动大写
+    - lua_filter@*pin_cand_filter                  # 置顶候选项
+    - lua_filter@*reduce_english_filter            # 降低部分英语单词在候选项的位置
+    - lua_filter@*cn_en_spacer                     # 为中英混输词条自动空格
+    - lua_filter@*en_spacer                        # 英文单词后面自动空格
+    - simplifier@emoji                             # Emoji
+    - simplifier@traditionalize                    # 简繁切换
+    - uniquifier                                   # 去重
 
 
 # Lua 配置：农历的触发关键字
@@ -135,58 +138,86 @@ reduce_english_filter:
     tad, tail, taj, tar, tax, tec, ted, tel, ter, tex, tic, tied, tier, ties, tim, tin, tit, tour, tout, tum,
     wag, wand, womens, wap, wax, weir, won,
     yan, yen,
-    zach
-    ]
+    zach]
 
 
 # Lua 配置: 置顶候选项
 # 注释太长了，请参考 pin_cand_filter.lua 开头的说明书。
 pin_cand_filter:
   # 格式：编码<Tab>字词1<Space>字词2……
-  - q	去 千
-  - w	我 万 往
-  - e	呃
-  - r	让 人
-  - t	他 她 它 祂
-  - y	与 于
-  - o	哦
-  - p	片 篇
   - a	啊
-  - s	是 时 使 式
-  - d	的 地 得
-  - f	发 放 分
+  - e	呃
+  - o	哦
   - m	吗
-  - b	吧	把
-  - qu	去
-  - ww	为
-  - en	嗯
-  - ui	是 时 使 式
+  - d	的 地 得
+  - t	他 她 它 祂
   - na	那 哪 拿 呐
+  - ui	是 时 使 式
   - dd	等等
+  - wsm	为什么
+  - sbs	是不是
+  - msm	没什么
+  - smd	什么的
+  - sms	什么是
+  - sma	什么啊
+  - wkk	我看看
+  - dddd	等等等等
+
 
 # 主翻译器，拼音
 translator:
-  dictionary: rime_frost                   # 挂载词库 rime_frost.dict.yaml
+  dictionary: rime_frost     # 挂载词库 rime_frost.dict.yaml
   prism: rime_frost_flypy    # 多方案共用一个词库时，为避免冲突，需要用 prism 指定一个名字。
-  spelling_hints: 8                        # corrector.lua ：为了让错音错字提示的 Lua 同时适配全拼双拼，将拼音显示在 comment 中
-  always_show_comments: true               # corrector.lua ：Rime 默认在 preedit 等于 comment 时取消显示 comment，这里强制一直显示，供 corrector.lua 做判断用。
-  initial_quality: 1.2                     # 拼音的权重应该比英文大
-  comment_format:                          # 标记拼音注释，供 corrector.lua 做判断用
+  spelling_hints: 8          # corrector.lua：为了让错音错字提示的 Lua 同时适配全拼双拼，将拼音显示在 comment 中
+  always_show_comments: true # corrector.lua：Rime 默认在 preedit 等于 comment 时取消显示 comment，这里强制一直显示，供 corrector.lua 做判断用。
+  initial_quality: 1.2       # 拼音的权重应该比英文大
+  comment_format:            # 标记拼音注释，供 corrector.lua 做判断用
     - xform/^/［/
     - xform/$/］/
-  preedit_format:               # preedit_format 影响到输入框的显示和“Shift+回车”上屏的字符
-    - xform/([nl])v/$1ü/
-    - xform/([nl])ue/$1üe/
+  preedit_format:            # preedit_format 影响到输入框的显示和“Shift+回车”上屏的字符
+    - xform/([bpmfdtnljqx])n/$1iao/
+    - xform/(\w)g/$1eng/
+    - xform/(\w)q/$1iu/
+    - xform/(\w)w/$1ei/
+    - xform/([dtnlgkhjqxyvuirzcs])r/$1uan/
+    - xform/(\w)t/$1ve/
+    - xform/(\w)y/$1un/
+    - xform/([dtnlgkhvuirzcs])o/$1uo/
+    - xform/(\w)p/$1ie/
+    - xform/([jqx])s/$1iong/
+    - xform/(\w)s/$1ong/
+    - xform/(\w)d/$1ai/
+    - xform/(\w)f/$1en/
+    - xform/(\w)h/$1ang/
+    - xform/(\w)j/$1an/
+    - xform/([gkhvuirzcs])k/$1uai/
+    - xform/(\w)k/$1ing/
+    - xform/([jqxnl])l/$1iang/
+    - xform/(\w)l/$1uang/
+    - xform/(\w)z/$1ou/
+    - xform/([gkhvuirzcs])x/$1ua/
+    - xform/(\w)x/$1ia/
+    - xform/(\w)c/$1ao/
+    - xform/([dtgkhvuirzcs])v/$1ui/
+    - xform/(\w)b/$1in/
+    - xform/(\w)m/$1ian/
+    - xform/([aoe])\1(\w)/$1$2/
+    - "xform/(^|[ '])v/$1zh/"
+    - "xform/(^|[ '])i/$1ch/"
+    - "xform/(^|[ '])u/$1sh/"
     - xform/([jqxy])v/$1u/
+    - xform/([nl])v/$1ü/
+    - xform/ü/v/  # ü 显示为 v
+
 
 # 次翻译器，英文
 melt_eng:
-  dictionary: melt_eng     # 挂载词库 melt_eng.dict.yaml
-  enable_sentence: false   # 禁止造句
-  enable_user_dict: false  # 禁用用户词典
-  initial_quality: 0.8     # 初始权重
-  comment_format:          # 自定义提示码
-    - xform/.*//           # 清空提示码
+  dictionary: melt_eng    # 挂载词库 melt_eng.dict.yaml
+  enable_sentence: false  # 禁止造句
+  enable_user_dict: false # 禁用用户词典
+  initial_quality: 1.1    # 初始权重
+  comment_format:         # 自定义提示码
+    - xform/.*//          # 清空提示码
 
 
 # 中英混合词汇
@@ -204,40 +235,46 @@ cn_en:
 # 自定义短语
 custom_phrase:
   dictionary: ""
-  user_dict: custom_phrase_flypy  # 需要手动创建 custom_phrase_flypy.txt 文件
-  db_class: stabledb
-  enable_completion: false # 补全提示
-  enable_sentence: false   # 禁止造句
-  initial_quality: 99      # custom_phrase 的权重应该比 pinyin 和 melt_eng 大
+  user_dict: custom_phrase_flypy # 可以修改这里，改成自己的 txt 文件
+  db_class: stabledb             # 只读数据库，无法动态调频；设为 tabledb 可以动态调频
+  enable_completion: false       # 补全提示
+  enable_sentence: false         # 禁止造句
+  initial_quality: 10            # custom_phrase 的权重应该比 pinyin 和 melt_eng 大
 
 
 # Emoji
 emoji:
   option_name: emoji
   opencc_config: emoji.json
-  inherit_comment: false  # 在 corrector.lua 及反查中，emoji 返回空注释
+  inherit_comment: false # 在 corrector.lua 及反查中，emoji 返回空注释
 
 
 # 简繁切换
 traditionalize:
   option_name: traditionalization
-  opencc_config: s2c.json
-  tips: char               # 转换提示: all 都显示 | char 仅单字显示 | none 不显示。
-  tags: [ abc, number, gregorian_to_lunar ]  # 限制在对应 tag，不对其他如反查的内容做简繁转换
+  opencc_config: s2c.json # s2t.json | s2hk.json | s2tw.json | s2twp.json
+  tips: char              # 转换提示: all 都显示 | char 仅单字显示 | none 不显示。
+  tags: [ abc, number, gregorian_to_lunar ] # 限制在对应 tag，不对其他如反查的内容做简繁转换
+
+
+# 词库提示
+tag_user_dict:
+  user_table: '∴'  # 用户词典表示
+  user_phrase: '*' # 用户短语
+  completion: ''   # 自动补全
+  sentence: '∝'    # 自动造句
+  phrase: ''       # 默认短语
 
 
 # 标点符号
 # punctuator 下面有三个子项：
 #   full_shape 全角标点映射
 #   half_shape 半角标点映射
-#   symbols    Rime 的预设配置是以 '/' 前缀开头输出一系列字符
 punctuator:
   full_shape:
     __include: default:/punctuator/full_shape  # 从 default.yaml 导入配置
   half_shape:
     __include: default:/punctuator/half_shape  # 从 default.yaml 导入配置
-  symbols:
-    __include: symbols_v:/symbols         # 从 symbols_v.yaml 导入配置
 
 
 # 部件拆字反查
@@ -246,7 +283,7 @@ radical_lookup:
   dictionary: radical_pinyin
   enable_user_dict: false
   prefix: "uU"  # 反查前缀（反查时前缀会消失影响打英文所以设定为两个字母，或可改成一个非字母符号），与 recognizer/patterns/radical_lookup 匹配
-  tips: "  〔拆字〕"
+  tips: "\u2003〔拆字〕"
   comment_format:
     - erase/^.*$//
 # 部件拆字滤镜
@@ -255,24 +292,23 @@ radical_reverse_lookup:
   # dictionary 为拼音标注来源。目前是显示本方案词库的注音，可去部件拆字方案下载更全的、带声调的、已编译好的词典
   # https://github.com/mirtlecn/rime-radical-pinyin?tab=readme-ov-file#%E5%8F%8D%E6%9F%A5%E5%B8%A6%E5%A3%B0%E8%B0%83%E6%B3%A8%E9%9F%B3
   dictionary: rime_frost
-  comment_format:     # 自定义 comment，例如在左右加上括号
-   - xform/^/(/
-   - xform/$/)/
+  comment_format:     # 自定义 comment
+   - xform/^/〔/
+   - xform/$/〕/
 
 
 # 处理符合特定规则的输入码，如网址、反查
-
 recognizer:
-  import_preset: default  # 从 default.yaml 继承通用的
-  patterns:  # 再增加方案专有的：
-    punct: "^/([0-9]|10|[A-Za-z]+)$"    # 响应 symbols_v.yaml 的 symbols
-    radical_lookup: "^uU[a-z]+$"        # 响应部件拆字的反查，与 radical_lookup/prefix 匹配
-    unicode: "^U[a-f0-9]+"              # 脚本将自动获取第 2 个字符 U 作为触发前缀，响应 lua_translator@*unicode，输出 Unicode 字符
-    number: "^R[0-9]+[.]?[0-9]*"        # 脚本将自动获取第 2 个字符 R 作为触发前缀，响应 lua_translator@*number_translator，数字金额大写
-    gregorian_to_lunar: "^N[0-9]{1,8}"  # 脚本将自动获取第 2 个字符 N 作为触发前缀，响应 lua_translator@*lunar，公历转农历，输入 N20240115 得到「二〇二三年腊月初五」
-    expression: "^=.*$"                 # 响应 lua_translator@expression_translator 脚本将自动获取第 2 个字符作为触发前缀
+  import_preset: default               # 继承通用的
+  patterns:                            # 再增加方案专有的：
+    radical_lookup: "^uU[a-z]+$"       # 响应部件拆字的反查，与 radical_lookup/prefix 匹配
+    unicode: "^U[a-f0-9]+"             # 脚本将自动获取第 2 个字符 U 作为触发前缀，响应 lua_translator@*unicode，输出 Unicode 字符
+    number: "^R[0-9]+[.]?[0-9]*"       # 脚本将自动获取第 2 个字符 R 作为触发前缀，响应 lua_translator@*number_translator，数字金额大写
+    gregorian_to_lunar: "^N[0-9]{1,8}" # 脚本将自动获取第 2 个字符 N 作为触发前缀，响应 lua_translator@*lunar，公历转农历，输入 N20240115 得到「二〇二三年腊月初五」
+    expression: "^=.*$"                # 响应 lua_translator@expression_translator 脚本将自动获取第 2 个字符作为触发前缀
 
-# 从 default 继承快捷键
+
+# 快捷键
 key_binder:
   import_preset: default  # 从 default.yaml 继承通用的
 
@@ -285,122 +321,36 @@ speller:
   delimiter: " '"  # 第一位<空格>是拼音之间的分隔符；第二位<'>表示可以手动输入单引号来分割拼音。
   algebra:
     - erase/^xx$/
-    - abbrev/^([a-z])[a-z]*$/$1/       # 简拼（首字母）
-    - abbrev/^([zcs]h).+$/$1/          # 简拼（zh, ch, sh）
-
-    # 张居正方案（替换原方案小鹤双拼适配）
-    # 需要特殊处理避免歧义的韵母
-    - derive/^([bcdfghklmnprstwyz])(ang)$/$1h
-    - derive/^(ch)(ang)$/ih
-    - derive/^(sh)(ang)$/uh
-    - derive/^(zh)(ang)$/vh
-
-    - derive/^([cdghklnrstyz])(ong)$/$1s
-    - derive/^(ch)(ong)$/is
-    - derive/^(zh)(ong)$/vs
-
-    - derive/^([bcdghklmnpstwz])(ai)$/$1d
-    - derive/^(ch)(ai)$/id
-    - derive/^(sh)(ai)$/ud
-    - derive/^(zh)(ai)$/vd
-
-    - derive/^([bcdghklmnprstyz])(ao)$/$1c
-    - derive/^(ch)(ao)$/ic
-    - derive/^(sh)(ao)$/uc
-    - derive/^(zh)(ao)$/vc
-
-    - derive/^([bcdfghklmnprstwyz])(an)$/$1j
-    - derive/^(ch)(an)$/ij
-    - derive/^(sh)(an)$/uj
-    - derive/^(zh)(an)$/vj
-
-      # 单字母韵母
-    - derive/^(a)$/aa
-    - derive/^(o)$/oo
-    - derive/^(e)$/ee
-
-      # 三字母韵母
-    - derive/^(ang)$/ah
-    - derive/^(eng)$/eg
-
-      # 卷舌声母
-    - derive/^(zh)([aeiu])$/v$2
-    - derive/^(ch)([aeiu])$/i$2
-    - derive/^(sh)([aeiu])$/u$2
-
-      # 四字母韵母
-    - derive/^([jlnqx])(iang)$/$1l
-    - derive/^([jqx])(iong)$/$1s
-
-      # 三字母韵母
-    - derive/^([bdjlmnpqtxy])(ing)$/$1k
-    - derive/^([bdjlmnpqtx])(iao)$/$1n
-    - derive/^([bdjlmnpqtx])(ian)$/$1m
-
-      # 二字母韵母
-    - derive/^([djlmnqx])(iu)$/$1q
-    - derive/^([jlnqxy])[uv]e/$1t
-    - derive/^([bdjlmnpqtx])(ie)$/$1p
-    - derive/^([djlqx])(ia)$/$1x
-    - derive/^([bjlmnpqxy])(in)$/$1b
-
-      # iuv特殊处理
-      # 四字母
-    - derive/^([ghk])(uang)$/$1l
-    - derive/^(ch)(uang)$/il
-    - derive/^(sh)(uang)$/ul
-    - derive/^(zh)(uang)$/vl
-
-      # 三字母
-    - derive/^([cdghjklnqrstxyz])(uan)$/$1r
-    - derive/^(ch)(uan)$/ir
-    - derive/^(sh)(uan)$/ur
-    - derive/^(zh)(uan)$/vr
-
-    - derive/^([bcdfghklmnprstwz])(eng)$/$1g
-    - derive/^(ch)(eng)$/ig
-    - derive/^(sh)(eng)$/ug
-    - derive/^(zh)(eng)$/vg
-
-    - derive/^([ghk])(uai)$/$1k
-    - derive/^(ch)(uai)$/ik
-    - derive/^(sh)(uai)$/uk
-    - derive/^(zh)(uai)$/vk
-
-      # 二字母
-    - derive/^([bdfghklmnpwz])(ei)$/$1w
-    - derive/^(sh)(ei)$/uw
-    - derive/^(zh)(ei)$/vw
-
-    - derive/^([cdghjklqrstxyz])(un)$/$1y
-    - derive/^(ch)(un)$/iy
-    - derive/^(sh)(un)$/uy
-    - derive/^(zh)(un)$/vy
-
-    - derive/^([cdghklnrstz])(uo)$/$1o
-    - derive/^(ch)(uo)$/io
-    - derive/^(sh)(uo)$/uo
-    - derive/^(zh)(uo)$/vo
-
-    - derive/^([bcdfghkmnprswz])(en)$/$1f
-    - derive/^(ch)(en)$/if
-    - derive/^(sh)(en)$/uf
-    - derive/^(zh)(en)$/vf
-
-    - derive/^([cdfghklmnprstyz])(ou)$/$1z
-    - derive/^(ch)(ou)$/iz
-    - derive/^(sh)(ou)$/uz
-    - derive/^(zh)(ou)$/vz
-
-    - derive/^([ghkr])(ua)$/$1x
-    - derive/^(ch)(ua)$/ix
-    - derive/^(sh)(ua)$/ux
-    - derive/^(zh)(ua)$/vx
-
-    - derive/^([cdghkrstz])(ui)$/$1v
-    - derive/^(ch)(ui)$/iv
-    - derive/^(sh)(ui)$/uv
-    - derive/^(zh)(ui)$/vv
+    - derive/^([jqxy])u$/$1v/
+    - derive/^([aoe])([ioun])$/$1$1$2/
+    - xform/^([aoe])(ng)?$/$1$1$2/
+    - xform/iu$/Ⓠ/
+    - xform/(.)ei$/$1Ⓦ/
+    - xform/uan$/Ⓡ/
+    - xform/[uv]e$/Ⓣ/
+    - xform/un$/Ⓨ/
+    - xform/^sh/Ⓤ/
+    - xform/^ch/Ⓘ/
+    - xform/^zh/Ⓥ/
+    - xform/uo$/Ⓞ/
+    - xform/ie$/Ⓟ/
+    - xform/(.)i?ong$/$1Ⓢ/
+    - xform/ing$|uai$/Ⓚ/
+    - xform/(.)ai$/$1Ⓓ/
+    - xform/(.)en$/$1Ⓕ/
+    - xform/(.)eng$/$1Ⓖ/
+    - xform/[iu]ang$/Ⓛ/
+    - xform/(.)ang$/$1Ⓗ/
+    - xform/ian$/Ⓜ/
+    - xform/(.)an$/$1Ⓙ/
+    - xform/(.)ou$/$1Ⓩ/
+    - xform/[iu]a$/Ⓧ/
+    - xform/iao$/Ⓝ/
+    - xform/(.)ao$/$1Ⓒ/
+    - xform/ui$/Ⓥ/
+    - xform/in$/Ⓑ/
+    - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
+    # - abbrev/^(.).+$/$1/  # 首字母简拼，开启后会导致 3 个字母时 kj'x 变成 k'jx 的问题
 
 
 # 模型
