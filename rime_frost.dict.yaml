@@ -6,7 +6,7 @@ name: rime_frost
 version: "2023-11-13"
 import_tables:
   - dicts/rime-frost.8105     # 字表
-  # - dicts/rime-frost.41448    # 大字表（按需启用）
+  - dicts/rime-frost.41448    # 大字表（按需启用）
   - dicts/rime-frost.base     # 基础词库
   - dicts/rime-frost.ext      # 扩展词库
   - dicts/rime-frost.tencent  # 腾讯词向量（大词库，部署时间较长）

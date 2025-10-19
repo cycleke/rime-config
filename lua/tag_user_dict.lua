@@ -26,21 +26,18 @@ function M.func(input, env)
 		local tags = ""
 		for _, condition in ipairs(conditions) do
 			if condition.value and cand.type == condition.type then
-				-- 将条件值追加到候选项的注释中。
-				tags = tags .. condition.value
+				tags = condition.value
 				break
 			end
 		end
 
 		if tags ~= "" then
-			if
-				cand.comment ~= ""
-				and not (#cand.comment >= 2 and cand.comment:sub(1, 1) == "［" and cand.comment:sub(-1, -1) == "］")
-			then
-				cand:get_genuine().comment = tags .. " " .. cand.comment
-			else
-				cand:get_genuine().comment = tags
-			end
+			-- if cand.comment == "" or cand.comment:match("^［(.-)］$") then
+			-- 	cand:get_genuine().comment = tags
+			-- else
+			-- 	cand:get_genuine().comment = tags .. " " .. cand.comment
+			-- end
+			cand:get_genuine().comment = tags .. " " .. cand.comment
 		end
 
 		yield(cand)

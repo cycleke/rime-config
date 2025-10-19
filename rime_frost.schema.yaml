@@ -73,8 +73,8 @@ engine:
     - lua_translator@*calculator      # 计算器（lua 动态表达式）
     - lua_translator@*force_gc        # 暴力 GC
   filters:
-    - lua_filter@*tag_user_dict                    # 用户词典的词加标记
     - lua_filter@*corrector                        # 错音错字提示
+    - lua_filter@*tag_user_dict                    # 用户词典的词加标记
     - reverse_lookup_filter@radical_reverse_lookup # 部件拆字滤镜
     - lua_filter@*autocap_filter                   # 英文自动大写
     - lua_filter@*pin_cand_filter                  # 置顶候选项
