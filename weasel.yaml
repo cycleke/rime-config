@@ -51,17 +51,14 @@ style:
   # 格式：字体 1:起始码位：结束码位:字重：字形，字体 2……，字体会依次 fallback
   # 详细设定请参考 <https://github.com/rime/weasel/wiki/字體設定>
   font_face: >-
-    KingHwaOldSong-MN,
-    YShiMincho CLS,
-    I.Ming,
-    Planschrift P1,
-    Planschrift P2,
+    LXGW WenKai Screen,
+    LXGW WenKai,
     Noto Color Emoji,
     Noto Sans Symbols 2,
     Noto Sans Symbols,
     Noto Unicode
   label_font_face: "Consolas"              # 标签字体
-  comment_font_face: "I.Ming"              # 注释字体
+  comment_font_face: "LXGW WenKai"         # 注释字体
   font_point: 10                           # 全局字体字号
   label_font_point: 10                     # 标签字体字号，不设定 fallback 到 font_point
   comment_font_point: 9                    # 注释字体字号，不设定 fallback 到 font_point
