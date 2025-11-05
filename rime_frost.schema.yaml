@@ -62,7 +62,7 @@ engine:
   translators:
     - punct_translator
     - script_translator
-    - lua_translator@*date_time       # 时间、日期、星期、月份
+    - lua_translator@*shijian         # 时间、日期、星期、月份、问候、节气、节日，N 模式
     - lua_translator@*lunar           # 农历
     - table_translator@custom_phrase  # 自定义短语
     - table_translator@melt_eng       # 英文输入
@@ -89,6 +89,30 @@ engine:
 
 # Lua 配置：农历的触发关键字
 lunar: lunar  # 农历： 二〇二三年冬月二十 癸卯年（兔）冬月二十
+
+
+#shijian:仅仅作为提示使用，编码已经写死，引导键可以在key_binder下修改前缀
+#时间：osj
+#日期：orq
+#农历：onl
+#星期：oxq
+#今年第几周：oww
+#节气：ojq
+#日期+时间：ors
+#时间戳：ott
+#大写N日期：N20250315 或者N0312不带年
+#节日：ojr
+#问候模板：oday
+#下面用于对orq和N20250101这样的日期候选自定义（顺序、类型、候选个数）由你完全掌控，前面是对于公历后面默认携带农历
+#Y=年，m=月，d=日，数字前面带0如02月09日；y代表后两位年如15年，nj代表不带0的 如2月9日
+date_formats:
+  - "Y 年 m 月 d 日"
+  - "Y-m-d"
+  - "Y/m/d"
+  - "Y.m.d"
+  - "Ymd"
+  - "Y 年 n 月 j 日"
+  - "y 年 n 月 j 日"
 
 
 # Lua 配置：长词优先
@@ -282,7 +306,7 @@ recognizer:
 # 从 default 继承快捷键
 key_binder:
   import_preset: default  # 从 default.yaml 继承通用的
-
+  shijian_keys: ["o"]
 
 # 拼写设定
 speller:

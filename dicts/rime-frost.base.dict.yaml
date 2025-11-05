@@ -3304,6 +3304,7 @@ sort: by_weight
 矮种马	ai zhong ma	27
 爱抓	ai zhua	4
 矮壮的	ai zhuang de	10
+挨住	ai zhu	3
 矮桌	ai zhuo	21
 艾滋	ai zi	568
 矮子	ai zi	461
@@ -34656,6 +34657,7 @@ sort: by_weight
 # 陈厝	chen cuo	0
 # 陈达	chen da	0
 陈大悲	chen da bei	1
+尘袋	chen dai	5
 陈埭	chen dai	1
 # 陈旦	chen dan	0
 陈丹青	chen dan qing	218
@@ -43040,6 +43042,7 @@ sort: by_weight
 纯纯的爱	chun chun de ai	5
 蠢蠢欲动	chun chun yu dong	709
 春从春游夜专夜	chun cong chun you ye zhuan ye	6
+春促	chun cu	4
 纯粹	chun cui	16752
 纯粹理性批判	chun cui li xing pi pan	117
 纯粹是	chun cui shi	2336
@@ -60782,6 +60785,7 @@ sort: by_weight
 电务段	dian wu duan	2
 点戏	dian xi	15
 殿下	dian xia	979
+点下	dian xia	194
 # 殿霞	dian xia	0
 点下方	dian xia fang	124
 点下来	dian xia lai	17
@@ -100095,7 +100099,7 @@ sort: by_weight
 过广州	guo guang zhou	7
 果果	guo guo	295
 过过	guo guo	358
-蝈蝈	guo guo	90
+蝈蝈	guo guo	390
 蝈蝈儿	guo guo er	2
 虢国夫人	guo guo fu ren	21
 过过瘾	guo guo yin	95
@@ -104053,7 +104057,7 @@ sort: by_weight
 寒流	han liu	165
 含硫	han liu	141
 汗流	han liu	44
-韩流	han liu	421
+韩流	han liu	42
 汗流浃背	han liu jia bei	239
 含硫量	han liu liang	15
 汗流满面	han liu man mian	9
@@ -121349,6 +121353,12 @@ sort: by_weight
 集尘	ji chen	44
 忌辰	ji chen	12
 # 寄尘	ji chen	0
+集尘机	ji chen ji	0
+集尘桶	ji chen tong	0
+集尘盒	ji chen he	0
+集尘箱	ji chen xiang	0
+集尘袋	ji chen dai	0
+集尘设备	ji chen she bei	0
 集尘器	ji chen qi	5
 集成	ji cheng	4132
 继承	ji cheng	6702
@@ -140667,6 +140677,7 @@ sort: by_weight
 敬你	jing ni	117
 经年	jing nian	332
 经年累月	jing nian lei yue	243
+精酿	jing niang	3053
 惊鸟	jing niao	9
 # 景宁	jing ning	0
 # 静宁	jing ning	0
@@ -143763,7 +143774,7 @@ sort: by_weight
 救援者	jiu yuan zhe	17
 救援中心	jiu yuan zhong xin	25
 九月	jiu yue	1903
-就越	jiu yue	4724
+就越	jiu yue	472
 旧约	jiu yue	388
 九月初八	jiu yue chu ba	5
 九月初六	jiu yue chu liu	2
@@ -191662,6 +191673,7 @@ sort: by_weight
 你这样的	ni zhe yang de	315
 你这也	ni zhe ye	41
 你真	ni zhen	1039
+拟真	ni zhen	262
 倪震	ni zhen	4
 你真棒	ni zhen bang	64
 你真聪明	ni zhen cong ming	21
@@ -196420,6 +196432,7 @@ sort: by_weight
 旁观者清	pang guan zhe qing	132
 旁观者效应	pang guan zhe xiao ying	9
 膀胱	pang guang	774
+旁光	pang guang	7
 膀胱癌	pang guang ai	98
 膀胱结核	pang guang jie he	2
 膀胱结石	pang guang jie shi	10
@@ -207109,6 +207122,7 @@ sort: by_weight
 枪出如龙	qiang chu ru long	12
 强出头	qiang chu tou	24
 强闯	qiang chuang	22
+强磁	qiang ci	74
 枪刺	qiang ci	24
 强词夺理	qiang ci duo li	168
 强刺激	qiang ci ji	56
@@ -211806,6 +211820,7 @@ sort: by_weight
 龟兹国	qiu ci guo	6
 龟兹王	qiu ci wang	4
 龟兹乐	qiu ci yue	3
+秋促	qiu cu	20
 求大同	qiu da tong	5
 求带	qiu dai	52
 球袋	qiu dai	11
@@ -211847,7 +211862,7 @@ sort: by_weight
 秋分	qiu fen	373
 秋分点	qiu fen dian	35
 秋分客尚在	qiu fen ke shang zai	2
-秋风	qiu feng	540
+秋风	qiu feng	640
 球风	qiu feng	582
 秋风吹	qiu feng chui	30
 秋风吹不尽	qiu feng chui bu jin	3
@@ -239667,6 +239682,7 @@ sort: by_weight
 事由	shi you	402
 室友	shi you	8664
 实有	shi you	119
+尸油	shi you	34
 湿疣	shi you	11
 诗友	shi you	22
 师友	shi you	108
@@ -243235,6 +243251,7 @@ sort: by_weight
 舒克和贝塔	shu ke he bei ta	20
 舒克舒克	shu ke shu ke	2
 舒克与贝塔	shu ke yu bei ta	5
+树坑	shu keng	8
 数控	shu kong	175
 数控车床	shu kong che chuang	13
 数控机床	shu kong ji chuang	122
@@ -290199,6 +290216,7 @@ sort: by_weight
 陷阱多	xian jing duo	6
 现就	xian jiu	58
 先救	xian jiu	122
+献酒	xian jiu	5
 现就读	xian jiu du	6
 先就业	xian jiu ye	71
 现居	xian ju	165
@@ -290457,6 +290475,7 @@ sort: by_weight
 仙妮蕾德	xian ni lei de	2
 现年	xian nian	213
 先念	xian nian	13
+鲜酿	xian niang	4
 咸宁	xian ning	77
 咸柠七	xian ning qi	14
 咸宁市	xian ning shi	4
@@ -324917,6 +324936,7 @@ sort: by_weight
 迎奥运	ying ao yun	6
 应把	ying ba	73
 硬拔	ying ba	21
+英霸	ying ba	15
 影吧	ying ba	10
 莹白	ying bai	32
 应办	ying ban	6
@@ -361204,6 +361224,7 @@ sort: by_weight
 周末去	zhou mo qu	323
 周末休假	zhou mo xiu jia	3
 周某	zhou mou	472
+周目	zhou mu	242
 州牧	zhou mu	95
 周穆王	zhou mu wang	78
 周赧王	zhou nan wang	27
@@ -368012,6 +368033,7 @@ sort: by_weight
 字数限制	zi shu xian zhi	109
 紫薯芋泥	zi shu yu ni	10
 子数组	zi shu zu	111
+滋水	zi shui	13
 资水	zi shui	6
 紫水晶	zi shui jing	32
 紫水晶项链	zi shui jing xiang lian	1
