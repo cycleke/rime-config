@@ -8,7 +8,6 @@ build/
 sync/
 *.userdb/
 
+custom.dict.yaml
 custom_phrase.txt
 custom_phrase_flypy.txt
-dicts/custom.dict.yaml
-dicts/*.custom.dict.yaml
